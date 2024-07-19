@@ -1,5 +1,5 @@
 import Extension from "@/components/Extension"
-import cssText from "data-text:~styles.css"
+import cssText from "data-text:~style.css"
 import type {
   PlasmoCSConfig,
   PlasmoGetInlineAnchor,
