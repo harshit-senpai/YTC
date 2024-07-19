@@ -1,4 +1,5 @@
 import useExtensionStore from "@/store/extensionStore"
+import { useEffect } from "react"
 
 import { Collapsible } from "./ui/collapsible"
 
@@ -15,6 +16,22 @@ export default function Extension() {
     extensionIsOpen,
     extensionVideo
   } = useExtensionStore()
+
+  useEffect(() => {
+    const getCssVariables = (name: string) => {
+      const rootStyles = getComputedStyle(document.documentElement)
+      return rootStyles.getPropertyValue(name).trim()
+    }
+    const bgColor = getCssVariables("--yt-spec-base-background")
+    if (bgColor === "fff") {
+      setExtensionTheme("light")
+    } else {
+      setExtensionTheme("dark")
+    }
+  });
+
+  if(!extensionTheme) return null
+
   return (
     <main className="antialiased w-full mb-3 z-10">
       <div className="w-full">
