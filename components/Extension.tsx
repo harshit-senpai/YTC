@@ -28,9 +28,9 @@ export default function Extension() {
     } else {
       setExtensionTheme("dark")
     }
-  });
+  })
 
-  if(!extensionTheme) return null
+  if (!extensionTheme) return null
 
   return (
     <main className="antialiased w-full mb-3 z-10">

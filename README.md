@@ -1,33 +1,74 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
 
-## Getting Started
+# YTC ✨
 
-First, run the development server:
+This is a chrome Extension which is a part of me learning building, how to build chrome extensions.
+
+YTC lets you have a chat with a Youtube video, get the summary of the video and see the whole trancription of the video.
+
+## Built using Plasmo, Typescript and Tailwindcss
+
+It leverages OpenAI's ChatGPT and Google's gemini you can pick and choose between thse two LLMs
+
+
+## Demo
+
+Insert gif or link to demo
+
+
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+
+## Features
+
+- Light/dark mode toggle
+- Live previews
+- Fullscreen mode
+- Cross platform
+
+
+## Inspirations
+
+ - [Youtube AI](https://chat-with-youtube.vercel.app/)
+ I got the inspiration of building YTC by looking at Youtube AI
+
+
+## Tech Stack
+
+**Client:** React, Redux, TailwindCSS
+
+**Server:** Node, Express
+
+
+## Run Locally
+
+Clone the project
 
 ```bash
-pnpm dev
-# or
-npm run dev
+  git clone https://link-to-project
 ```
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
-
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
-
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
-
-## Making production build
-
-Run the following:
+Go to the project directory
 
 ```bash
-pnpm build
-# or
-npm run build
+  cd my-project
 ```
 
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
+Install dependencies
 
-## Submit to the webstores
+```bash
+  npm install
+```
 
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+Start the server
+
+```bash
+  npm run start
+```
+
+
+## Authors
+
+- [@harshit-senpai](https://www.github.com/harshit-senpai)
+
