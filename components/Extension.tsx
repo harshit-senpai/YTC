@@ -18,6 +18,19 @@ export default function Extension() {
   } = useExtensionStore()
 
   useEffect(() => {
+    const getVideoId = () => {
+      return new URLSearchParams(window.location.search).get("v");
+    }
+    const fetchVideoData = async () => {
+      const id = getVideoId();
+      if(id && id !== extensionVideo) {
+        setExtensionVideoId(id);
+        setExtensionLoading(true);
+      }
+    }
+  })
+
+  useEffect(() => {
     const getCssVariables = (name: string) => {
       const rootStyles = getComputedStyle(document.documentElement)
       return rootStyles.getPropertyValue(name).trim()
