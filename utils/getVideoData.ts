@@ -22,7 +22,7 @@ export async function getVideoData(id: string) {
   //@ts-ignore
   let player = window.ytInitialPlayerResponse
   if (!player || id !== player.videoDetails.videoId) {
-    const pageData = await fetch(`https://www.youtube.com/wathc?v=${id}`)
+    const pageData = await fetch(`https://www.youtube.com/watch?v=${id}`)
     const body = await pageData.text()
 
     const playerResponseMatch = body.match(YT_INITIAL_PLAYER_RESPONSE_REGEX)
@@ -45,7 +45,7 @@ export async function getVideoData(id: string) {
     const tracks = player.captions.playerCaptionsTracklistRenderer.captionTracks
     if (tracks && tracks.length > 0) {
       tracks.sort(compareTracks)
-      const transcriptResponse = await fetch(tracks[0].baseUrl + "&ft=json3")
+      const transcriptResponse = await fetch(tracks[0].baseUrl + "&fmt=json3")
       const transcript = await transcriptResponse.json()
       return { metaData, transcript }
     }

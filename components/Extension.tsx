@@ -28,7 +28,7 @@ export default function Extension() {
         setExtensionVideoId(id)
         setExtensionLoading(true)
         const data = await getVideoData(id)
-        console.log("Data")
+        console.log("YTC Extension: Data")
         console.log(data)
         setExtensionData(data)
         setExtensionLoading(false)
@@ -52,7 +52,7 @@ export default function Extension() {
     } else {
       setExtensionTheme("dark")
     }
-  })
+  }, [])
 
   if (!extensionTheme) return null
 
