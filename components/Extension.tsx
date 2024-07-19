@@ -1,4 +1,5 @@
 import useExtensionStore from "@/store/extensionStore"
+import { getVideoData } from "@/utils/getVideoData"
 import { useEffect } from "react"
 
 import { Collapsible } from "./ui/collapsible"
@@ -19,16 +20,26 @@ export default function Extension() {
 
   useEffect(() => {
     const getVideoId = () => {
-      return new URLSearchParams(window.location.search).get("v");
+      return new URLSearchParams(window.location.search).get("v")
     }
     const fetchVideoData = async () => {
-      const id = getVideoId();
-      if(id && id !== extensionVideo) {
-        setExtensionVideoId(id);
-        setExtensionLoading(true);
+      const id = getVideoId()
+      if (id && id !== extensionVideo) {
+        setExtensionVideoId(id)
+        setExtensionLoading(true)
+        const data = await getVideoData(id)
+        console.log("Data")
+        console.log(data)
+        setExtensionData(data)
+        setExtensionLoading(false)
       }
     }
-  })
+    fetchVideoData();
+
+    const intervalId = setInterval(fetchVideoData, 2000);
+
+    return () => clearInterval(intervalId)
+  }, [extensionVideo])
 
   useEffect(() => {
     const getCssVariables = (name: string) => {
