@@ -2,7 +2,8 @@ import useExtensionStore from "@/store/extensionStore"
 import { getVideoData } from "@/utils/getVideoData"
 import { useEffect } from "react"
 
-import { Collapsible } from "./ui/collapsible"
+import { Collapsible } from "../ui/collapsible"
+import ExtensionAction from "./ExtensionAction"
 
 export default function Extension() {
   const {
@@ -34,9 +35,9 @@ export default function Extension() {
         setExtensionLoading(false)
       }
     }
-    fetchVideoData();
+    fetchVideoData()
 
-    const intervalId = setInterval(fetchVideoData, 2000);
+    const intervalId = setInterval(fetchVideoData, 2000)
 
     return () => clearInterval(intervalId)
   }, [extensionVideo])
@@ -47,7 +48,7 @@ export default function Extension() {
       return rootStyles.getPropertyValue(name).trim()
     }
     const bgColor = getCssVariables("--yt-spec-base-background")
-    if (bgColor === "fff") {
+    if (bgColor === "#fff") {
       setExtensionTheme("light")
     } else {
       setExtensionTheme("dark")
@@ -57,10 +58,14 @@ export default function Extension() {
   if (!extensionTheme) return null
 
   return (
-    <main className="antialiased w-full mb-3 z-10">
+    <main
+      className={`antialiased w-full mb-3 z-0 ${extensionTheme}`}>
       <div className="w-full">
-        <Collapsible className="space-y-3">
-          <h1 className="text-5xl">extensions Action</h1>
+        <Collapsible
+          className="space-y-3"
+          onOpenChange={setExtensionIsOpen}
+          open={extensionIsOpen}>
+          <ExtensionAction />
         </Collapsible>
       </div>
     </main>
