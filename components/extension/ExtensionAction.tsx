@@ -1,3 +1,4 @@
+import { useCopyToClipboard } from "@/hooks/useCopyHook"
 import useExtensionStore from "@/store/extensionStore"
 import {
   ActivityLogIcon,
@@ -16,6 +17,13 @@ import { CollapsibleTrigger } from "../ui/collapsible"
 export default function ExtensionAction() {
   const { setExtensionPanel, extensionIsOpen, setExtensionIsOpen } =
     useExtensionStore()
+
+  const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 2000 })
+
+  function CopyVideoURL() {
+    if (isCopied) return
+    copyToClipboard(window.location.href)
+  }
 
   return (
     <div className="border border-zinc-500 rounded-xl flex items-center justify-between p-2.5 px-3 dark:bg-[#0f0f0f] dark:text-white dark:border-zinc-700">
@@ -63,8 +71,13 @@ export default function ExtensionAction() {
           <Button
             variant="outline"
             size="icon"
+            onClick={() => CopyVideoURL()}
             className="rounded-xl border border-zinc-500 dark:border-zinc-700 ">
-            <Link2Icon className="h-4.5 w-4.5 opacity-60" />
+            {isCopied ? (
+              <CheckIcon className="h-4.5 w-4.5 opacity-60" />
+            ) : (
+              <Link2Icon className="h-4.5 w-4.5 opacity-60" />
+            )}
           </Button>
         </ToolTip>
 

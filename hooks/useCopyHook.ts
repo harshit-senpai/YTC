@@ -10,15 +10,14 @@ export function useCopyToClipboard({
   const [isCopied, setIsCopied] = useState<boolean>(false)
 
   const copyToClipboard = (value: string) => {
-    if (
-      typeof window === "undefined" ||
-      typeof !navigator.clipboard?.writeText
-    ) {
+    if (typeof window === "undefined" || !navigator.clipboard?.writeText) {
       return
     }
+
     if (!value) {
       return
     }
+
     navigator.clipboard.writeText(value).then(() => {
       setIsCopied(true)
 
@@ -27,5 +26,6 @@ export function useCopyToClipboard({
       }, timeout)
     })
   }
+
   return { isCopied, copyToClipboard }
 }
