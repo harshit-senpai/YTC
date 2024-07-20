@@ -1,9 +1,11 @@
 import useExtensionStore from "@/store/extensionStore"
 import { getVideoData } from "@/utils/getVideoData"
+import { CollapsibleContent } from "@radix-ui/react-collapsible"
 import { useEffect } from "react"
 
 import { Collapsible } from "../ui/collapsible"
 import ExtensionAction from "./ExtensionAction"
+import ExtensionPanel from "./ExtensionPanel"
 
 export default function Extension() {
   const {
@@ -58,14 +60,16 @@ export default function Extension() {
   if (!extensionTheme) return null
 
   return (
-    <main
-      className={`antialiased w-full mb-3 z-0 ${extensionTheme}`}>
+    <main className={`antialiased w-full mb-3 z-0 ${extensionTheme}`}>
       <div className="w-full">
         <Collapsible
           className="space-y-3"
           onOpenChange={setExtensionIsOpen}
           open={extensionIsOpen}>
           <ExtensionAction />
+          <CollapsibleContent className="w-full h-fit max-h-500px border border-zinc-500 rounded-xl overflow-auto dark:border-zinc-700">
+            <ExtensionPanel />
+          </CollapsibleContent>
         </Collapsible>
       </div>
     </main>
