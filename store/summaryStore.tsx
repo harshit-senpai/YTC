@@ -1,10 +1,5 @@
 import { models, prompts, type Modal, type Prompt } from "@/types/type"
-import { useEffect } from "react"
 import { create } from "zustand"
-
-import { usePort } from "@plasmohq/messaging/hook"
-
-import useExtensionStore from "./extensionStore"
 
 interface Summary {
   summaryModel: Modal
@@ -31,66 +26,14 @@ const initialSummaryState: Summary = {
   summaryIsGenerating: false
 }
 
-const useSummaryStore = create<Summary & SummaryActions>((set, get) => {
-  //@ts-ignore
-  const port = usePort("completion")
-  const { extensionData, extensionIsLoading } = useExtensionStore()
-
-  const generateSummary = async (e: any) => {
-    e.preventDefault()
-    const { summaryPrompt, summaryModel, summaryContent } = get()
-
-    if (summaryContent !== null) {
-      set({ summaryContent: null })
-    }
-
-    set({ summaryIsGenerating: true, summaryIsError: false })
-
-    port.send({
-      prompt: summaryPrompt.content,
-      model: summaryModel.content,
-      context: extensionData
-    })
-  }
-
-  useEffect(() => {
-    set({
-      summaryContent: null,
-      summaryIsGenerating: false,
-      summaryIsError: false
-    })
-  }, [extensionIsLoading])
-
-  useEffect(() => {
-    const { message, isEnd } = port.data || {}
-    if (message !== undefined && isEnd === false) {
-      set({ summaryContent: message })
-    } else {
-      set({ summaryIsGenerating: false })
-    }
-    set({ summaryIsError: false })
-  }, [port.data?.message])
-
-  useEffect(() => {
-    const { error } = port.data || {}
-    if (error !== undefined && error !== null) {
-      set({ summaryIsError: true, summaryContent: null })
-    } else {
-      set({ summaryIsError: false })
-    }
-  }, [port.data?.error])
-
-  return {
-    ...initialSummaryState,
-    setSummaryModel: (model: Modal) => set({ summaryModel: model }),
-    setSummaryPrompt: (prompt: Prompt) => set({ summaryPrompt: prompt }),
-    setSummaryContent: (content: string | null) =>
-      set({ summaryContent: content }),
-    setSummaryIsError: (isError: boolean) => set({ summaryIsError: isError }),
-    setSummaryIsGenerating: (isGenerating: boolean) =>
-      set({ summaryIsGenerating: isGenerating }),
-    generateSummary
-  }
-})
+const useSummaryStore = create<Summary & SummaryActions>((set) => ({
+  ...initialSummaryState,
+  setSummaryModel: (model: Modal) => set({ summaryModel: model }),
+  setSummaryPrompt: (prompt: Prompt) => set({ summaryPrompt: prompt }),
+  setSummaryContent: (content: string | null) => set({ summaryContent: content }),
+  setSummaryIsError: (isError: boolean) => set({ summaryIsError: isError }),
+  setSummaryIsGenerating: (isGenerating: boolean) => set({ summaryIsGenerating: isGenerating }),
+  generateSummary: () => {}
+}))
 
 export default useSummaryStore
