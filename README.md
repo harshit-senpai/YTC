@@ -1,6 +1,8 @@
 
 # YTC ✨
 
+Currently YTC usees OpenAI's API and my limit of free tier has exceeded, i'll soo shift it to Google's Gemini 
+
 This is a chrome Extension which is a part of me learning building, how to build chrome extensions.
 
 YTC lets you have a chat with a Youtube video, get the summary of the video and see the whole trancription of the video.
